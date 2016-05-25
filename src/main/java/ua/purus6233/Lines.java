@@ -21,6 +21,8 @@ public class Lines{
 		return sourceSc;
 	}
 	
+	//Test_1
+	
 	public Scanner getChooseSc(){
 		return chooseSc;
 	}
