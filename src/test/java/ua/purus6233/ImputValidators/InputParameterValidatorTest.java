@@ -1,9 +1,9 @@
 package ua.purus6233.ImputValidators;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class TestInputParameterValidator extends Assert {
+public class InputParameterValidatorTest{
 	
 	@Test
 	public void test_type() throws Exception {
@@ -17,10 +17,9 @@ public class TestInputParameterValidator extends Assert {
 	}
 	
 	@Test
-	public void test_checkWithRegExp(){
+	public void test_letters_checkWithRegExp(){
 		InputParameterValidator validator = new InputParameterValidator();
 		String latinPattern = "^[a-zA-Z]+$";
-		String numericPattern = "^[0-9]+$";
 		validator.setPatternExpresion(latinPattern);
 		
 		boolean actual = validator.checkWithRegExp("latinLatin");
@@ -28,15 +27,19 @@ public class TestInputParameterValidator extends Assert {
 	    	    
 	    actual = validator.checkWithRegExp("русский");
 	    assertFalse(actual);
-	    
-	    validator.setPatternExpresion(numericPattern);
+	}
+	
+	@Test
+	public void test_checkWithRegExp(){
+		InputParameterValidator validator = new InputParameterValidator();
+		String numericPattern = "^[0-9]+$";
+		validator.setPatternExpresion(numericPattern);
 		
-		actual = validator.checkWithRegExp("latin");
+		boolean actual = validator.checkWithRegExp("latin");
 	    assertFalse(actual);
 	    
 	    actual = validator.checkWithRegExp("12354");
 	    assertTrue(actual);
-	    
 	}
 	
 	@Test
@@ -54,16 +57,25 @@ public class TestInputParameterValidator extends Assert {
 	}
 	
 	@Test
-	public void test_isPalindrome(){
+	public void test_numeric_isPalindrome(){
 		InputParameterValidator validator = new InputParameterValidator();
 		
 		boolean actual = validator.isPalindrome("1235321");
 	    assertTrue(actual);
 	    
-	    actual = validator.isPalindrome("abcba");
-	    assertTrue(actual);
-	    
+
 	    actual = validator.isPalindrome("123654");
 	    assertFalse(actual);
+	}
+	
+	@Test
+	public void test_word_isPalindrome(){
+		InputParameterValidator validator = new InputParameterValidator();
+	    
+		boolean actual = validator.isPalindrome("abcba");
+	    assertTrue(actual);
+	    
+	    actual = validator.isPalindrome("abcde");
+	    assertFalse(actual);  
 	}
 }

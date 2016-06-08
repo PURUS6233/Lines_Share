@@ -18,11 +18,11 @@ public class InputParameterValidator {
 	    * @param source. Input source address for validation  
 	    * @return true valid customer input, false invalid customer input  
 	    */
-	
-	public boolean checkWithRegExp(final String source){    
+	 
+	public boolean checkWithRegExp(final String source){ 
 		Pattern p = Pattern.compile(getPatternExpresion());
-        Matcher m = p.matcher(source);  
-		return m.matches();          
+        Matcher m = p.matcher(source);
+		return m.matches();
 	}
 	
 	public boolean isVowel(char ch){

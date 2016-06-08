@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestQuadraticEquation extends Assert {
+public class QuadraticEquationTest extends Assert {
 	
 	private QuadraticEquation data_1;
 	private QuadraticEquation data_2;
@@ -37,11 +37,13 @@ public class TestQuadraticEquation extends Assert {
 	public void test_type() throws Exception {
 		assertNotNull(QuadraticEquation.class);
 	}
+	
 	@Test
 	public void test_instantiation() throws Exception {
 		QuadraticEquation target = new QuadraticEquation();
 		assertNotNull(target);
 	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void test_findRootsWithIllegal_A_Param(){
 		data_3.findRoots();
@@ -50,6 +52,7 @@ public class TestQuadraticEquation extends Assert {
 	public void test_findRootsWithIllegal_B_C_Param(){
 		data_4.findRoots();
 	}
+	
 	@Test
 	public void test_findRoots_data_1(){
 		
