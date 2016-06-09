@@ -26,7 +26,7 @@ public class SourceInput {
 				taskNumber = Integer.parseInt(chooseSc.nextLine());
 			} catch (NumberFormatException e) {
 			}
-		} while (taskNumber < first || taskNumber > last);
+		} while (taskNumber<first || taskNumber>last);
 		return taskNumber;
 	}
 
@@ -99,7 +99,7 @@ public class SourceInput {
 		return taskOrder;
 	}
 
-	private boolean blankInputTermination(List<String> list) {
+	public boolean blankInputTermination(List<String> list) {
 		if (list.isEmpty()) {
 			return true;
 		}

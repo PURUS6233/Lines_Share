@@ -11,6 +11,7 @@ import java.util.Set;
 import com.google.common.base.Preconditions;
 
 import ua.purus6233.ImputValidators.InputParameterValidator;
+import ua.purus6233.Sort.StringLengthComparator;
 
 enum Order {
 	ASCENDING('>'), DESCENDING('<');
@@ -55,12 +56,6 @@ enum Month {
 
 public class TaskBody {
 	
-	public void stringListOutput(List<String> list){ // TODO gavno
-		for(String label: list){
-			System.out.println(label);
-		}
-	}
-	
 	public List<String> createSubList(List<String> list, int fromIndex, int tillIndex){
 		
 		List<String> partList; 
@@ -90,17 +85,19 @@ public class TaskBody {
 				" (" + longest.length() + ")");
 		return shortLong;
 	}
-		
+	StringLengthComparator sc = new StringLengthComparator();
+	
 	public List<String> orderSelection(List<String> list, Order orderSighn){
 		
 		List<String> copyList = new ArrayList<String>(list);//This is the shallow copy
 		Collections.copy(copyList, list);
-		
+				
 		switch(orderSighn){
 		case ASCENDING: 
-			Collections.sort(list);
+			Collections.sort(copyList, sc);//TODO Why we need it?
 			break;
 		case DESCENDING:
+			Collections.sort(copyList, sc);
 			Collections.reverse(copyList);
 		}
 		
@@ -130,8 +127,8 @@ public class TaskBody {
 		for(String word: list){
 			Set<Character> set = new HashSet<Character>();
 			int wordLength = word.length();
-			//for(int i=0;i<word.length();i++){ //FIXME
-			//	set.add(word.charAt(i));\		 
+			//for(int i=0;i<word.length();i++){ //Second approach
+			//	set.add(word.charAt(i)); 
 			for(char ch: word.toCharArray()){
 				set.add(ch);
 			}
@@ -163,10 +160,10 @@ public class TaskBody {
 		return latinWords;
 	}
 	
-	public int isWordEqual(List<String> latinWords){
+	public int counterEqualConsVovelWords(List<String> latinWords){ // FIXME
 		int equalVovConsNumber = 0;
-		final int rateEquality = 2;
-		int vovConsRate = 0;
+		double rateEquality = 2.0;
+		double vovConsRate = 0.0;
 		
 		for(String word: latinWords){
 			int vovelCounter = 0;
@@ -175,10 +172,14 @@ public class TaskBody {
 					vovelCounter++;
 				}
 			}
-			vovConsRate = word.length()/vovelCounter;
-			if(vovConsRate == rateEquality){
-				equalVovConsNumber++;
-			}
+			vovConsRate = (word.length()-1)/vovelCounter;
+			int rateValue = Double.compare(vovConsRate, rateEquality);
+			if(rateValue > 0 || rateValue < 0) {
+		    	 break;
+		     }
+		     else {
+		    	 equalVovConsNumber++;
+		     }
 		}
 		return equalVovConsNumber;
 	}
@@ -188,7 +189,7 @@ public class TaskBody {
 		labelFor:
 		for (String word: list){
 			for(int i=1;i<word.length();i++){
-				if(word.charAt(i-1)>word.charAt(i)){
+				if(word.charAt(i-1)>word.charAt(i)||word.charAt(i-1)==word.charAt(i)){
 					break;
 				}
 				if(i==word.length()-1){
@@ -219,11 +220,11 @@ public class TaskBody {
 		return requiredWord;
 	}
 	
-	private static final String PALINDROMEPATTERN = "^[0-9]+$";
+	private static final String PALINDROME_PATTERN = "^[0-9]+$";
 	
 	public String findSecondNumericWordPalindrome (List<String> list){
 		List<String> palindromeList = new ArrayList<String>();
-		validator.setPatternExpresion(PALINDROMEPATTERN);
+		validator.setPatternExpresion(PALINDROME_PATTERN);
 		String wordPalindrome = "";
 		
 		for (String word: list){

@@ -4,12 +4,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 import ua.purus6233.QuadraticEquation.QuadraticEquation;
-import ua.purus6233.Sort.StringLengthComparator;
 
 public class Lines {
 
@@ -39,10 +37,9 @@ public class Lines {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException {
 
-		StringLengthComparator sc = new StringLengthComparator();
 		TaskBody tb = new TaskBody();
 		InputStream inputSource = null;// TODO
-		String pathToFile = "src/test/resources/resource.txt";
+		String pathToFile = "c:\\1.txt";
 		try {
 			inputSource = new FileInputStream(pathToFile);
 		} catch (FileNotFoundException e1) {
@@ -59,7 +56,6 @@ public class Lines {
 		case 1:
 			sourceSentenceStrings = source.readSentencesFromInput(lines
 					.getSourceSc());
-			Collections.sort(sourceSentenceStrings, sc);
 			List<String> listShortLong = tb
 					.findShortLongSentence(sourceSentenceStrings);
 			for (String label : listShortLong) {
@@ -70,7 +66,6 @@ public class Lines {
 		case 2:
 			sourceSentenceStrings = source.readSentencesFromInput(lines
 					.getSourceSc());
-			Collections.sort(sourceSentenceStrings, sc);
 			System.out
 					.println("Please enter the order (type '>' for ascending order or '<' for descending):");
 			char orderSighn = source.orderLabelChoosing(lines.getChooseSc());
@@ -85,7 +80,6 @@ public class Lines {
 		case 3:
 			sourceSentenceStrings = source.readSentencesFromInput(lines
 					.getSourceSc());
-			Collections.sort(sourceSentenceStrings, sc);
 			System.out
 					.println("Please enter the list part "
 							+ "(type '>' for sentences from middle to end or '<' from middle to the first sentence):");
@@ -110,7 +104,7 @@ public class Lines {
 			List<String> latinWords = tb.findLatinCharWords(sourceWordsString);
 			System.out.println("Number of words with only latin symbols: "
 					+ (latinWords.size()));
-			int equalVovConsNumber = tb.isWordEqual(latinWords);
+			int equalVovConsNumber = tb.counterEqualConsVovelWords(latinWords);
 			System.out
 					.println("Number of words with equal amount of vovels and consonants: "
 							+ equalVovConsNumber);
