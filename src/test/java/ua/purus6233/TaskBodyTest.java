@@ -135,4 +135,25 @@ public class TaskBodyTest {
 		
 		assertEquals(expected, actual);
 	}
+	
+	@Test
+	public void test_findFirstWordWithCharCodeAscOrder() throws Exception {
+		String expected = "12345";
+		String actual = body.findFirstWordWithCharCodeAscOrder(INPUT_WORDS);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void test_findFirstWordWithOnlyDiffSymbols() throws Exception {
+		String expected = "Algebra";
+		String actual = body.findFirstWordWithOnlyDiffSymbols(INPUT_WORDS);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void test_findSecondNumericWordPalindrome() throws Exception {
+		String expected = "15751";
+		String actual = body.findSecondNumericWordPalindrome(INPUT_WORDS);
+		assertEquals(expected, actual);
+	}
 }

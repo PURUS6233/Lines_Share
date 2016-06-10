@@ -41,19 +41,20 @@ public class SourceInput {
 						+ "Press Enter and 'q' to quit using manual input.");
 		outer: while (sourceSc.hasNextLine()) {
 			String line = sourceSc.nextLine().trim();
+			line = line.replaceAll("\\s+", " ");
 			Pattern p = Pattern.compile(SENTENCE_DELIMITERS);
 			Matcher m = p.matcher(line);
 			if (m.find()) {
 				String[] splitString = line.split(SENTENCE_DELIMITERS);
 				for (int i = 0; i < splitString.length; i++) {
-					if (splitString[i].trim().equals("q")) {
+					if (splitString[i].replaceAll("\\s+", "").equals("q")) {
 						break outer;
 					} else {
-						sentenceInputContent.add(splitString[i].trim());
+						sentenceInputContent.add(splitString[i].replaceAll("\\s+", " ").trim());
 					}
 				}
 			} else {
-				if (line.equals("q")) {
+				if (line.replaceAll("\\s+", "").equals("q")) {
 					break outer;
 				}
 				sentenceInputContent.add(line);
@@ -72,6 +73,7 @@ public class SourceInput {
 						+ "Press 'q' to quit.");
 		while (sourceSc.hasNext()) {
 			String word = sourceSc.next();
+			word = word.replaceAll("\\s+", "");
 			if (word.equals("q")) {
 				break;
 			} else {

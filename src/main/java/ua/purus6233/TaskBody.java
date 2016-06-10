@@ -50,7 +50,10 @@ enum Month {
 	}
 	
 	public static Month valueOf(int monthCode){
-		return map.get(monthCode);
+		if (map.containsKey(monthCode)){
+			return map.get(monthCode);
+		}
+		throw new IllegalArgumentException("Month number not correct.");
 	}
 }
 
@@ -166,19 +169,16 @@ public class TaskBody {
 		double vovConsRate = 0.0;
 		
 		for(String word: latinWords){
-			int vovelCounter = 0;
+			double vovelCounter = 0;
 			for(int i=0;i<word.length();i++){
 				if (validator.isVowel(word.charAt(i))){
 					vovelCounter++;
 				}
 			}
-			vovConsRate = (word.length()-1)/vovelCounter;
+			vovConsRate = (word.length())/vovelCounter;
 			int rateValue = Double.compare(vovConsRate, rateEquality);
-			if(rateValue > 0 || rateValue < 0) {
-		    	 break;
-		     }
-		     else {
-		    	 equalVovConsNumber++;
+			if(!(rateValue>0 || rateValue<0)) {
+				equalVovConsNumber++;
 		     }
 		}
 		return equalVovConsNumber;
@@ -241,7 +241,7 @@ public class TaskBody {
 			try{
 				wordPalindrome = palindromeList.get(0);	
 			}catch(IndexOutOfBoundsException e){
-				System.out.println("There is no Palindrome word in the source.");
+				wordPalindrome = "There is no Numeric Palindrome word in the source.";
 			}
 		}
 		return wordPalindrome;
