@@ -1,6 +1,5 @@
 package ua.purus6233;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,7 +35,7 @@ public class SourceInput {
 	private static final String SENTENCE_DELIMITERS = "[\\.!?]";
 	private static final String MULT_SPACES_2_SKIP_REGEX = "[\\s+]";
 
-	public List<String> readSentencesFromInput(Scanner sourceSc) {
+	public List<String> readSentencesFromInput(Scanner sourceSc){
 		List<String> sentenceInputContent = new ArrayList<>();
 		System.out
 				.println("Enter multiple lines divided by '. ? !' or Enter. \n"
@@ -44,11 +43,17 @@ public class SourceInput {
 		outer: while (sourceSc.hasNextLine()) {
 			String line = sourceSc.nextLine()
 					.replaceAll(MULT_SPACES_2_SKIP_REGEX, " ").trim();
+			if (line.isEmpty()){
+				continue;
+			}
 			Pattern p = Pattern.compile(SENTENCE_DELIMITERS);
 			Matcher m = p.matcher(line);
 			if (m.find()) {
 				String[] splitString = line.split(SENTENCE_DELIMITERS);
 				for (int i = 0; i < splitString.length; i++) {
+					if (splitString[i].replaceAll(MULT_SPACES_2_SKIP_REGEX, "").isEmpty()){
+						continue;
+					} 
 					if (splitString[i].trim().equals("q")) {
 						break outer;
 					} else {
@@ -68,9 +73,9 @@ public class SourceInput {
 		return sentenceInputContent;
 	}
 
-	private static final String WORDS_DELIMITERS_2_SKIP_REGEX = "[\\s.,-]";
+	private static final String WORDS_DELIMITERS_2_SKIP_REGEX = "[\\s+.!?,-]";
 
-	public List<String> readWordsFromInput(Scanner sourceSc) throws IOException {
+	public List<String> readWordsFromInput(Scanner sourceSc){
 		List<String> inputByWordsContent = new ArrayList<>();
 		System.out
 				.println("Enter words divided by white spase ' ' or Enter. \n"
@@ -78,6 +83,9 @@ public class SourceInput {
 		while (sourceSc.hasNext()) {
 			String word = sourceSc.next().replaceAll(
 					WORDS_DELIMITERS_2_SKIP_REGEX, "");
+			if (word.replaceAll(MULT_SPACES_2_SKIP_REGEX, "").isEmpty()){
+				continue;
+			} 
 			if (word.equals("q")) {
 				break;
 			} else {
@@ -97,7 +105,8 @@ public class SourceInput {
 		String pattern = "^(<|>)$";
 		boolean valid = false;
 		do {
-			setOrder = order.nextLine();
+			setOrder = order.nextLine().replaceAll(
+					WORDS_DELIMITERS_2_SKIP_REGEX, "");
 			validator.setPatternExpresion(pattern);
 			valid = validator.checkWithRegExp(setOrder);
 		} while (!valid);
