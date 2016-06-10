@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,7 +28,8 @@ public class Lines {
 	}
 
 	private Scanner sourceRemake(InputStream inStream) {
-		Scanner sc = new Scanner(inStream);
+		Scanner sc = new Scanner(inStream,
+				StandardCharsets.UTF_8.name());
 		return sc;
 	}
 
@@ -93,14 +95,14 @@ public class Lines {
 			break;
 
 		case 4:
-			sourceWordsString = source.readDataFromInput(lines.getSourceSc());
+			sourceWordsString = source.readWordsFromInput(lines.getSourceSc());
 			String word = tb
 					.findFirstWordWithMinimumDifferentSymbols(sourceWordsString);
 			System.out.println("Word with minimum different symbols: " + word
 					+ ".");
 			break;
 		case 5:
-			sourceWordsString = source.readDataFromInput(lines.getSourceSc());
+			sourceWordsString = source.readWordsFromInput(lines.getSourceSc());
 			List<String> latinWords = tb.findLatinCharWords(sourceWordsString);
 			System.out.println("Number of words with only latin symbols: "
 					+ (latinWords.size()));
@@ -110,7 +112,7 @@ public class Lines {
 							+ equalVovConsNumber);
 			break;
 		case 6:
-			sourceWordsString = source.readDataFromInput(lines.getSourceSc());
+			sourceWordsString = source.readWordsFromInput(lines.getSourceSc());
 			String ascendingOrderWord = tb
 					.findFirstWordWithCharCodeAscOrder(sourceWordsString);
 			System.out
@@ -118,7 +120,7 @@ public class Lines {
 							+ ascendingOrderWord);
 			break;
 		case 7:
-			sourceWordsString = source.readDataFromInput(lines.getSourceSc());
+			sourceWordsString = source.readWordsFromInput(lines.getSourceSc());
 			String uniquedWord = tb
 					.findFirstWordWithOnlyDiffSymbols(sourceWordsString);
 			System.out
@@ -126,7 +128,7 @@ public class Lines {
 							+ uniquedWord);
 			break;
 		case 8:
-			sourceWordsString = source.readDataFromInput(lines.getSourceSc());
+			sourceWordsString = source.readWordsFromInput(lines.getSourceSc());
 			String wordPalindrome = tb
 					.findSecondNumericWordPalindrome(sourceWordsString);
 			System.out.println("The word palindrome is : " + wordPalindrome);

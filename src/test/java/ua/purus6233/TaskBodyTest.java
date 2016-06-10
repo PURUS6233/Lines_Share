@@ -82,27 +82,26 @@ public class TaskBodyTest {
 	}
 
 	@Test
-	public void test_findRequiredPart_$ASCENDING() throws Exception {
-		List<String> expected_ASC = Arrays.asList("No man is an island.",
-				"The squeaky wheel gets the grease.");
-		Order order_ASC = Order.getOrder('>');
-		List<String> actual_ASC = body.findRequiredPart(INPUT_SENTENCE,
-				order_ASC);
+	public void test_findRequiredPart_$1_Part() throws Exception {
+		List<String> expected_1_Part = Arrays
+				.asList("No man is an island.");
+		Order order_1_Part = Order.getOrder('<');
+		List<String> actual_1_Part = body.findRequiredPart(INPUT_SENTENCE,
+				order_1_Part);
 
-		assertTrue(actual_ASC.size() == expected_ASC.size());
-		assertEquals(expected_ASC.toString(), actual_ASC.toString());
+		assertTrue(actual_1_Part.size() == expected_1_Part.size());
+		assertEquals(expected_1_Part.toString(), actual_1_Part.toString());
 	}
 
 	@Test
-	public void test_findRequiredPart_$DESCENDING() throws Exception {
-		List<String> expected_DESC = Arrays
-				.asList("When the going gets tough, the tough get going.");
-		Order order_DESC = Order.getOrder('<');
-		List<String> actual_DESC = body.findRequiredPart(INPUT_SENTENCE,
-				order_DESC);
+	public void test_findRequiredPart_$2_Part() throws Exception {
+		List<String> expected_2_Part = Arrays.asList("The squeaky wheel gets the grease.","When the going gets tough, the tough get going.");
+		Order order_2_Part = Order.getOrder('>');
+		List<String> actual_2_Part = body.findRequiredPart(INPUT_SENTENCE,
+				order_2_Part);
 
-		assertTrue(actual_DESC.size() == expected_DESC.size());
-		assertEquals(expected_DESC.toString(), actual_DESC.toString());
+		assertTrue(actual_2_Part.size() == expected_2_Part.size());
+		assertEquals(expected_2_Part.toString(), actual_2_Part.toString());
 	}
 
 	@Test

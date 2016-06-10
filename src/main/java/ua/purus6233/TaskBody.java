@@ -111,14 +111,15 @@ public class TaskBody {
 		
 		List<String> listPart = new ArrayList<String>(list);//This is the shallow copy
 		Collections.copy(listPart, list);
+		List<String> orderedList = orderSelection(listPart, Order.ASCENDING);
 		
-		final int listMiddle = (list.size())/2;
+		final int listMiddle = (listPart.size())/2;
 		if (order == Order.DESCENDING){
-			listPart = createSubList(list, 0, listMiddle);
+			listPart = createSubList(orderedList, 0, listMiddle);
 			return listPart;
 		}
 		else if (order == Order.ASCENDING){
-			listPart = createSubList(list, listMiddle, list.size());
+			listPart = createSubList(orderedList, listMiddle, list.size());
 			return listPart;
 		}
 		throw new RuntimeException();

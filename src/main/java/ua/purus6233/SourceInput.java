@@ -1,5 +1,6 @@
 package ua.purus6233;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,35 +27,36 @@ public class SourceInput {
 				taskNumber = Integer.parseInt(chooseSc.nextLine());
 			} catch (NumberFormatException e) {
 			}
-		} while (taskNumber<first || taskNumber>last);
+		} while (taskNumber < first || taskNumber > last);
 		return taskNumber;
 	}
 
 	InputParameterValidator validator = new InputParameterValidator();
 
 	private static final String SENTENCE_DELIMITERS = "[\\.!?]";
+	private static final String MULT_SPACES_2_SKIP_REGEX = "[\\s+]";
 
 	public List<String> readSentencesFromInput(Scanner sourceSc) {
-		List<String> sentenceInputContent = new ArrayList<String>();
+		List<String> sentenceInputContent = new ArrayList<>();
 		System.out
 				.println("Enter multiple lines divided by '. ? !' or Enter. \n"
 						+ "Press Enter and 'q' to quit using manual input.");
 		outer: while (sourceSc.hasNextLine()) {
-			String line = sourceSc.nextLine().trim();
-			line = line.replaceAll("\\s+", " ");
+			String line = sourceSc.nextLine()
+					.replaceAll(MULT_SPACES_2_SKIP_REGEX, " ").trim();
 			Pattern p = Pattern.compile(SENTENCE_DELIMITERS);
 			Matcher m = p.matcher(line);
 			if (m.find()) {
 				String[] splitString = line.split(SENTENCE_DELIMITERS);
 				for (int i = 0; i < splitString.length; i++) {
-					if (splitString[i].replaceAll("\\s+", "").equals("q")) {
+					if (splitString[i].trim().equals("q")) {
 						break outer;
 					} else {
-						sentenceInputContent.add(splitString[i].replaceAll("\\s+", " ").trim());
+						sentenceInputContent.add(splitString[i].trim());
 					}
 				}
 			} else {
-				if (line.replaceAll("\\s+", "").equals("q")) {
+				if (line.replaceAll(MULT_SPACES_2_SKIP_REGEX, "").equals("q")) {
 					break outer;
 				}
 				sentenceInputContent.add(line);
@@ -66,14 +68,16 @@ public class SourceInput {
 		return sentenceInputContent;
 	}
 
-	public List<String> readDataFromInput(Scanner sourceSc) {
-		List<String> inputByWordsContent = new ArrayList<String>();
+	private static final String WORDS_DELIMITERS_2_SKIP_REGEX = "[\\s.,-]";
+
+	public List<String> readWordsFromInput(Scanner sourceSc) throws IOException {
+		List<String> inputByWordsContent = new ArrayList<>();
 		System.out
 				.println("Enter words divided by white spase ' ' or Enter. \n"
 						+ "Press 'q' to quit.");
 		while (sourceSc.hasNext()) {
-			String word = sourceSc.next();
-			word = word.replaceAll("\\s+", "");
+			String word = sourceSc.next().replaceAll(
+					WORDS_DELIMITERS_2_SKIP_REGEX, "");
 			if (word.equals("q")) {
 				break;
 			} else {
